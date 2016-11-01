@@ -1,3 +1,9 @@
+/*
+ * jdbcapi.c
+ *
+ *  Created on: 2016Äê3ÔÂ14ÈÕ
+ *      Author: Haiyan.Liu
+ */
 #include <string.h>
 #include <stdio.h>
 #include <math.h>
@@ -37,7 +43,7 @@ static double read_value ( JDBC_API *obj,  int index_stmt)
 		NULL );
 	if ( res < 0 )
 	{
-		APAL_LOG_ERROR( "Attach the ENV failed\n" );
+		perror( "Attach the ENV failed\n" );
 		return -1;
 	}
 	value = ( *api_impl->env )->CallStaticDoubleMethod(
@@ -69,7 +75,7 @@ static bool get_connection (
 		NULL );
 	if ( res < 0 )
 	{
-		APAL_LOG_ERROR( "Attach the ENV failed\n" );
+		perror( "Attach the ENV failed\n" );
 		return -1;
 	}
 	jstring url = ( *api_impl->env )->NewStringUTF( api_impl->env, ul );
@@ -105,7 +111,7 @@ static int prepare_stmt ( JDBC_API * obj, const char *sql )
 		NULL );
 	if ( res < 0 )
 	{
-		APAL_LOG_ERROR( "Attach the ENV failed\n" );
+		perror( "Attach the ENV failed\n" );
 		return false;
 	}
 
@@ -141,14 +147,14 @@ static void set_column ( JDBC_API * obj, int id, const char *col_name )
 			NULL );
 		if ( res < 0 )
 		{
-			APAL_LOG_ERROR( "Attach the ENV failed\n" );
+			perror( "Attach the ENV failed\n" );
 			return;
 		}
 		//const char* col_name = (char *) POINT_COLUMN( point_array[ j ] );
 		jstring colname = ( *api_impl->env )->NewStringUTF(
 			api_impl->env,
 			col_name );
-		APAL_LOG_TRACE( "set_column :%s\n", col_name );
+		printf( "set_column :%s\n", col_name );
 		( *api_impl->env )->CallStaticVoidMethod(
 			api_impl->env,
 			api_impl->cls,
@@ -168,13 +174,13 @@ static void set_column ( JDBC_API * obj, int id, const char *col_name )
 		NULL );
 	if ( res < 0 )
 	{
-		APAL_LOG_ERROR( "Attach the ENV failed\n" );
+		perror( "Attach the ENV failed\n" );
 		return;
 	}
 	jstring colname = ( *api_impl->env )->NewStringUTF(
 		api_impl->env,
 		col_name );
-	APAL_LOG_TRACE( "set_column :%s\n", col_name );
+	printf( "set_column :%s\n", col_name );
 	( *api_impl->env )->CallStaticVoidMethod(
 		api_impl->env,
 		api_impl->cls,
@@ -200,7 +206,7 @@ static bool execute_query ( JDBC_API * obj ,int index_stmt)
 		NULL );
 	if ( res < 0 )
 	{
-		APAL_LOG_ERROR( "Attach the ENV failed\n" );
+		perror( "Attach the ENV failed\n" );
 		return false;
 	}
 
@@ -227,7 +233,7 @@ static void logoff ( JDBC_API * obj )
 		NULL );
 	if ( res < 0 )
 	{
-		APAL_LOG_ERROR( "Attach the ENV failed\n" );
+		perror( "Attach the ENV failed\n" );
 		return;
 	}
 	( *api_impl->env )->CallStaticVoidMethod(
@@ -257,12 +263,12 @@ JDBC_API* jdbcapi_create ()
 		&api_impl->vm_args );
 	if ( status != JNI_OK )
 	{
-		APAL_LOG_ERROR( "JVM Created failed!\n" );
+		perror( "JVM Created failed!\n" );
 		return NULL;
 	}
 	else
 	{
-		APAL_LOG_TRACE( "JVM Created success!\n" );
+		printf( "JVM Created success!\n" );
 		api_impl->cls = ( *api_impl->env )->FindClass(
 			api_impl->env,
 			"DevJDBC" );
@@ -311,7 +317,7 @@ JDBC_API* jdbcapi_create ()
 		}
 		else
 		{
-			APAL_LOG_ERROR( "can not find the JDBC class\n" );
+			perror( "can not find the JDBC class\n" );
 			return NULL;
 		}
 	}
@@ -321,10 +327,10 @@ JDBC_API* jdbcapi_create ()
 void jdbcapi_destroy ( JDBC_API * api_obj )
 {
 	//JDBC_API_IMPL* api_impl = (JDBC_API_IMPL *) api_obj;
-	APAL_LOG_TRACE( "DevJDBC:%s\n", __func__ );
+	printf( "DevJDBC:%s\n", __func__ );
 	if ( api_obj  != NULL )
 	{
-		apal_mem_free( api_obj );
+		free( api_obj );
 	}
 
 }
