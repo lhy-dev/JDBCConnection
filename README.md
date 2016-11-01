@@ -7,4 +7,4 @@ we use the oop programming in C , first java code can get the data from database
 
 data, but the API you can apply to your project. And the lib depends on my project:myJRE ,you can find the include file from 
 
-myJRE/include and the lib from the path myJRE/lib/arm/client/.
+myJRE/include and the lib from the path myJRE/lib/arm/client/. and the project can be open by eclipse IDE.
