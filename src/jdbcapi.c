@@ -1,9 +1,3 @@
-/*
- * jdbcapi.c
- *
- *  Created on: 2016Äê3ÔÂ14ÈÕ
- *      Author: Haiyan.Liu
- */
 #include <string.h>
 #include <stdio.h>
 #include <math.h>
