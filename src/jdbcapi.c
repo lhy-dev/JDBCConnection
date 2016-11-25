@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include "jni.h"
 #include "jdbcapi.h"
-#include "DAQCommon.h"
 
 struct jdbc_api_impl
 {
