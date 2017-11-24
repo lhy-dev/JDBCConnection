@@ -325,6 +325,6 @@ void jdbcapi_destroy ( JDBC_API * api_obj )
 	{
 		free( api_obj );
 	}
-
+	
 }
 
